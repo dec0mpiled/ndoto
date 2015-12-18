@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'nDoto' });
 });
 
+/* GET credits page */
+router.get('/credits', function(req, res, next) {
+  res.render('credits', { title: 'Credits' });
+});
+
 module.exports = router;
