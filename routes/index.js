@@ -5,9 +5,6 @@ var app = express();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
- // if (app.get('env') === 'production'){
-  //  res.redirect('/dev');
- // } else {
     fs.readFile('likeNumber.txt', 'utf-8', function(err, read) {
       if (err) throw err;
       res.render('index', { title: 'nDoto', likeNumber: parseInt(read) });
