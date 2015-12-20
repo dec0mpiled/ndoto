@@ -18,6 +18,11 @@ router.get('/credits', function(req, res, next) {
   res.render('credits', { title: 'Credits' });
 });
 
+/* GET login/register page */
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: 'Login' });
+});
+
 router.get('/addLike', function(req, res, next) {
   fs.readFile('likeNumber.txt', 'utf-8', function (err, read) {
     if (err) throw err;
