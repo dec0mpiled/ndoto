@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
 //  }
 });
 
+
 /* GET credits page */
 router.get('/credits', function(req, res, next) {
   res.render('credits', { title: 'Credits' });
