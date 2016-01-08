@@ -18,6 +18,24 @@ router.get('/credits', function(req, res, next) {
   res.render('credits', { title: 'Credits' });
 });
 
+/* GET RegisterSubmit*/
+// document is not defined
+// you have to use POST
+
+router.post('/regsubmit', function(req, res, next) {
+  
+  // req.body.(name of item)
+  var username = req.body.username;
+  var password = req.body.password;
+  
+  fs.appendFile('users.csv', username + ': {' + username + ',' + password + '}' + '\n', function(err) {
+    fs.appendFile('registerednames.csv', username + '\n')
+    if (err) throw err;
+    res.redirect('/');
+  });
+  
+});
+
 /* GET login/register page */
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
