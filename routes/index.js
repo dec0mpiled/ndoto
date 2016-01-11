@@ -24,16 +24,54 @@ router.get('/credits', function(req, res, next) {
 
 router.post('/regsubmit', function(req, res, next) {
   
+  var i=0
+  var findname
+  var findusername
+  var findpass
+  
   // req.body.(name of item)
   var username = req.body.username;
   var password = req.body.password;
   
   fs.appendFile('users.csv', username + ': {' + username + ',' + password + '}' + '\n', function(err) {
     fs.appendFile('registerednames.csv', username + '\n')
+   var read = fs.readFile('users.csv', 'utf-8', function (err, read) {
+    read.toString();
+    /*for (i=0; i < read.length; i++) {
+      var currentchar= read.charAt(i);
+      console.log(currentchar);
+    } */
+    var cu = read.search(",")
+    var cu1 = read.search(":")
+    var cu2 = read.search("{")
+    var cu3 = read.search("}")
+    parseInt(cu);
+    parseInt(cu1);
+    parseInt(cu2);
+    parseInt(cu3);
+          if (err) throw err;
+          console.log(cu);
+          console.log(cu1);
+          console.log(cu2);
+          console.log(cu3);
+    var findname = read.substring(0, cu1);
+    var findusername = read.substring(cu2+1, cu);
+    var findpass = read.substring(cu+1, cu3);
+     console.log(findname);
+     console.log(findusername);
+     console.log(findpass);
+     res.redirect('/regisComplete/'+findusername);
+   }); 
+    
     if (err) throw err;
-    res.redirect('/');
+    
   });
   
+});
+
+/* GET regisdone page */
+router.get('/regisComplete/:findusername', function(req, res, next) {
+  res.render('regisComplete', { title: 'Registration Complete', findusername: req.params.findusername });
 });
 
 /* GET login/register page */

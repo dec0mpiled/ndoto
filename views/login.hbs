@@ -2,9 +2,18 @@
 <a href="/"><font size="4" color="White">Home</font></a> <a href="/login/"><font size="4" color="White">Login</font></a> <a href="/credits/"><font size="4" color="White">Credits</font></a>
 
 <h3>Login:</h3>
-Username: <input type="text" name="fnamel"><br>
-Password: <input type="text" name="fpassl"><br>
-<br> <a href="/loginsubmit">[ Login ]</a>
+<form action="/logSubmit" method="post">
+    
+    <label for='username'>Username</label>
+    <input type="text" name="username" id="username" placeholder="username">
+    <br>
+    <label for='password'>Password</label>
+    <input type="password" name="password" id="password" placeholder="password">
+    
+    <!-- button -->
+    <br><button type="submit">Login :)</button>
+    
+</form>
 
 <br><br><h3>Register:</h3>
 
@@ -12,7 +21,7 @@ Password: <input type="text" name="fpassl"><br>
     
     <label for='username'>Username</label>
     <input type="text" name="username" id="username" placeholder="username">
-    
+    <br>
     <label for='password'>Password</label>
     <input type="password" name="password" id="password" placeholder="password">
     
