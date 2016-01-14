@@ -30,9 +30,18 @@ router.post('/regsubmit', function(req, res, next) {
   var findpass
   
   // req.body.(name of item)
-  var username = req.body.username;
+   var username = req.body.username;
   var password = req.body.password;
   
+var cars = ["Saab", "Volvo", "BMW"];
+  
+  fs.appendFile('users.json', cars, function(err) {
+  if (err) throw err;
+  console.log(cars[2])
+   res.redirect('/index');
+   }); 
+  
+  /*
   fs.appendFile('users.csv', username + ': {' + username + ',' + password + '}' + '\n', function(err) {
     fs.appendFile('registerednames.csv', username + '\n')
    var read = fs.readFile('users.csv', 'utf-8', function (err, read) {
@@ -41,6 +50,7 @@ router.post('/regsubmit', function(req, res, next) {
       var currentchar= read.charAt(i);
       console.log(currentchar);
     } */
+    /*
     var cu = read.search(",")
     var cu1 = read.search(":")
     var cu2 = read.search("{")
@@ -60,23 +70,28 @@ router.post('/regsubmit', function(req, res, next) {
      console.log(findname);
      console.log(findusername);
      console.log(findpass);
-     res.redirect('/regisComplete/'+findusername);
+     res.redirect('/regisComplete/'+username);
    }); 
     
     if (err) throw err;
     
   });
+  */
   
 });
 
 /* GET regisdone page */
-router.get('/regisComplete/:findusername', function(req, res, next) {
-  res.render('regisComplete', { title: 'Registration Complete', findusername: req.params.findusername });
+router.get('/regisComplete/:username', function(req, res, next) {
+  res.render('regisComplete', { title: 'Registration Complete', username: req.params.username });
 });
 
 /* GET login/register page */
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
+});
+
+router.get('/bugreport', function(req, res, next) {
+  res.render('bugreport', { title: 'Report a Bug' });
 });
 
 router.get('/addLike', function(req, res, next) {
