@@ -123,8 +123,8 @@ router.get('/bugreport', function(req, res, next) {
   res.render('bugreport', { title: 'Report a Bug / Send Feedback' });
 });
 
-router.get('/admin*:key', function(req, res, next) {
-  if (req.params.key=='tar*112715'){
+router.get('/admin@:key', function(req, res, next) {
+  if (req.params.key=='tarnowski27'){
   res.render('adminpriv', { title: 'Admin Console' });
   }
 });
