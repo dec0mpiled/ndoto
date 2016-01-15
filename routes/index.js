@@ -6,12 +6,6 @@ var email = require('emailjs')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    fs.readFile('isdev.txt', 'utf-8', function(err, isdev) {
-      if (err) throw err;
-      if (isdev==1) {
-        res.redirect('/dev');
-      }
-    });
     fs.readFile('likeNumber.txt', 'utf-8', function(err, read) {
       if (err) throw err;
       res.render('index', { title: 'nDoto', likeNumber: parseInt(read) });
