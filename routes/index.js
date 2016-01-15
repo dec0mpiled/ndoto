@@ -124,7 +124,7 @@ router.get('/bugreport', function(req, res, next) {
 });
 
 router.get('/admin@:key', function(req, res, next) {
-  if (req.params.key=='tarnowski27'){
+  if (req.params.key=='tarnowski27' || req.params.key=='owebboy10'){
   res.render('adminpriv', { title: 'Admin Console' });
   }
 });
