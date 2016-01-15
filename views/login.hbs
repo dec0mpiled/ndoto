@@ -1,15 +1,14 @@
 <head><link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/ ></head>
 <h1>Login or Register with nDoto</h1>
-<a href="/"><font size="4" color="White">Home</font></a> | <a href="/login/"><font size="4" color="White">Login</font></a> | <a href="/credits/"><font size="4" color="White">Credits</font></a> | <a href="/bugreport/"><font size="4" color="White">Bug Report</font></a>
+<a href="/"><font size="4" color="White">Home</font></a> | <a href="/login/"><font size="4" color="White">Login</font></a> | <a href="/credits/"><font size="4" color="White">Credits</font></a> | <a href="/bugreport/"><font size="4" color="White">Bug Report / Feedback</font></a>
 <h3>Login:</h3>
 <form action="/logSubmit" method="post">
     
     <label for='username'>Username</label>
-    <input type="text" name="username" id="username" placeholder="username">
+    <input required=1 type="text" name="username" id="username" placeholder="username" onkeypress="return alpha(event)" maxlength="15">
     <br>
     <label for='password'>Password</label>
-    <input type="password" name="password" id="password" placeholder="password">
-    
+    <input required=1 type="password" name="password" id="password" placeholder="password" onkeypress="return pass(event)">
     <!-- button -->
     <br><button type="submit">Login :)</button>
     
@@ -20,12 +19,25 @@
 <form action="/regSubmit" method="post">
     
     <label for='username'>Username</label>
-    <input type="text" name="username" id="username" placeholder="username">
+    <input required=1 type="text" name="username" id="username" placeholder="username" onkeypress="return alpha(event)" maxlength="15">
     <br>
     <label for='password'>Password</label>
-    <input type="password" name="password" id="password" placeholder="password">
-    
+    <input required=1 type="password" name="password" id="password" placeholder="password" onkeypress="return pass(event)">
+    {{#if err}}<p id="err"><font color="Red">{{err}}</font></p>{{/if}}
     <!-- button -->
     <br><button type="submit">Register :)</button>
+    
+    <script>
+    function alpha(e) {
+    var k;
+    document.all ? k = e.keyCode : k = e.which;
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || (k >= 48 && k <= 57));
+}
+    function pass(e) {
+    var k;
+    document.all ? k = e.keyCode : k = e.which;
+    return ((k > 0 && k < 32) || (k > 32 && k < 222));
+}
+    </script>
     
 </form>
