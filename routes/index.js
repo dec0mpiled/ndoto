@@ -31,18 +31,11 @@ router.post('/regsubmit', function(req, res, next) {
   
   // req.body.(name of item)
    var username = req.body.username;
-  var password = req.body.password;
+   var password = req.body.password;
+   
   
-var cars = ["Saab", "Volvo", "BMW"];
   
-  fs.appendFile('users.json', cars, function(err) {
-  if (err) throw err;
-  console.log(cars[2])
-   res.redirect('/index');
-   }); 
-  
-  /*
-  fs.appendFile('users.csv', username + ': {' + username + ',' + password + '}' + '\n', function(err) {
+ fs.appendFile('users.csv', username + ': {' + username + ',' + password + '}' + '\n', function(err) {
     fs.appendFile('registerednames.csv', username + '\n')
    var read = fs.readFile('users.csv', 'utf-8', function (err, read) {
     read.toString();
@@ -50,7 +43,7 @@ var cars = ["Saab", "Volvo", "BMW"];
       var currentchar= read.charAt(i);
       console.log(currentchar);
     } */
-    /*
+    
     var cu = read.search(",")
     var cu1 = read.search(":")
     var cu2 = read.search("{")
@@ -76,8 +69,6 @@ var cars = ["Saab", "Volvo", "BMW"];
     if (err) throw err;
     
   });
-  */
-  
 });
 
 /* GET regisdone page */
