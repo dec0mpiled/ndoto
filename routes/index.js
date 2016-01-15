@@ -22,12 +22,6 @@ router.get('/', function(req, res, next) {
 
 /* GET credits page */
 router.get('/credits', function(req, res, next) {
-      fs.readFile('isdev.txt', 'utf-8', function(err, isdev) {
-      if (err) throw err;
-      if (isdev==1) {
-        res.redirect('/dev');
-      }
-    });
   res.render('credits', { title: 'Credits' });
 });
 
@@ -37,12 +31,6 @@ router.get('/dev', function(req, res, next) {
 
 /*mail*/
 router.post('/sendMail', function(req, res, next) {
-      fs.readFile('isdev.txt', 'utf-8', function(err, isdev) {
-      if (err) throw err;
-      if (isdev==1) {
-        res.redirect('/dev');
-      }
-    });
   var texta = req.body.bug;
   var gnameoruser = req.body.nameoruser;
   var gbugemail = req.body.bugemail;
@@ -69,13 +57,6 @@ server.send({
 // you have to use POST
 
 router.post('/regsubmit', function(req, res, next) {
-  
-      fs.readFile('isdev.txt', 'utf-8', function(err, isdev) {
-      if (err) throw err;
-      if (isdev==1) {
-        res.redirect('/dev');
-      }
-    });
   
   var i=0
   var findname
@@ -140,33 +121,15 @@ router.post('/regsubmit', function(req, res, next) {
 
 /* GET regisdone page */
 router.get('/regisComplete/:username', function(req, res, next) {
-     fs.readFile('isdev.txt', 'utf-8', function(err, isdev) {
-      if (err) throw err;
-      if (isdev==1) {
-        res.redirect('/dev');
-      }
-    });
   res.render('regisComplete', { title: 'Registration Complete', username: req.params.username });
 });
 
 /* GET login/register page */
 router.get('/login', function(req, res, next) {
-      fs.readFile('isdev.txt', 'utf-8', function(err, isdev) {
-      if (err) throw err;
-      if (isdev==1) {
-        res.redirect('/dev');
-      }
-    });
   res.render('login', { title: 'Login' });
 });
 
 router.get('/bugreport', function(req, res, next) {
-     fs.readFile('isdev.txt', 'utf-8', function(err, isdev) {
-      if (err) throw err;
-      if (isdev==1) {
-        res.redirect('/dev');
-      }
-    });
   res.render('bugreport', { title: 'Report a Bug / Send Feedback' });
 });
 
@@ -177,12 +140,6 @@ router.get('/admin@:key', function(req, res, next) {
 });
 
 router.get('/addLike', function(req, res, next) {
-      fs.readFile('isdev.txt', 'utf-8', function(err, isdev) {
-      if (err) throw err;
-      if (isdev==1) {
-        res.redirect('/dev');
-      }
-    });
   fs.readFile('likeNumber.txt', 'utf-8', function (err, read) {
     if (err) throw err;
     fs.writeFile('likeNumber.txt', parseInt(read) + 1, function (err) {
@@ -194,12 +151,6 @@ router.get('/addLike', function(req, res, next) {
 });
 
 router.get('/resetAll', function(req, res, next) {
-     fs.readFile('isdev.txt', 'utf-8', function(err, isdev) {
-      if (err) throw err;
-      if (isdev==1) {
-        res.redirect('/dev');
-      }
-    });
   fs.writeFile('likeNumber.txt', 0, function (err) {
     if (err) throw err;
     console.log('It\'s saved!');
@@ -208,12 +159,6 @@ router.get('/resetAll', function(req, res, next) {
 });
 
 router.get('/removeLike', function(req, res, next) {
-     fs.readFile('isdev.txt', 'utf-8', function(err, isdev) {
-      if (err) throw err;
-      if (isdev==1) {
-        res.redirect('/dev');
-      }
-    });
   fs.readFile('likeNumber.txt', 'utf-8', function (err, read) {
     if (err) throw err;
     fs.writeFile('likeNumber.txt', parseInt(read) - 1, function (err) {
