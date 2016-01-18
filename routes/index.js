@@ -135,6 +135,16 @@ router.post('/regsubmit', function(req, res, next) {
 });
 });
 
+router.post('/deleteUsers',function(req, res, next) {
+    fs.writeFile('users.csv','', function(err) {
+        if (err) throw err;
+    })
+        fs.writeFile('registerednames.csv','', function(err) {
+        if (err) throw err;
+    })
+    res.redirect('/admin')
+})
+
 router.post('/logSubmit', function(req, res, next) {
   var gusername
   var gpassword
