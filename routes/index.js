@@ -138,11 +138,13 @@ router.post('/regsubmit', function(req, res, next) {
 router.post('/deleteUsers',function(req, res, next) {
     fs.writeFile('users.csv','', function(err) {
         if (err) throw err;
+        console.log("Deleted users.csv");
     })
         fs.writeFile('registerednames.csv','', function(err) {
         if (err) throw err;
+        console.log("Deleted registerednames.csv");
     })
-    res.redirect('/admin')
+    res.render('adminpriv', { title: 'Admin Console' });
 })
 
 router.post('/logSubmit', function(req, res, next) {
