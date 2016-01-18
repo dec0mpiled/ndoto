@@ -6,10 +6,10 @@ var email = require('emailjs')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('dev', {title: "Error"});
+    res.render('index', {title: 'nDoto'});
 });
 
-/* beta home page 
+/* beta home page *//*
 router.get('/beta', function(req, res, next) {
     fs.readFile('likeNumber.txt', 'utf-8', function(err, read) {
       if (err) throw err;
@@ -78,7 +78,7 @@ router.post('/regsubmit', function(req, res, next) {
     }
     
   else {
- fs.appendFile('users.csv', '%' + username + '%: {' + username + ',' + password + '}' + '\n', function(err) {
+ fs.appendFile('users.csv', '%' + username + '%: {' + username + ',' + password + '}%' + username + '%\n', function(err) {
     fs.appendFile('registerednames.csv', username + '\n')
    var read = fs.readFile('users.csv', 'utf-8', function (err, read) {
     read.toString();
@@ -107,6 +107,24 @@ router.post('/regsubmit', function(req, res, next) {
      console.log(findname);
      console.log(findusername);
      console.log(findpass);
+     
+  var server = email.server.connect({
+  user: 'ndotodrew@gmail.com',
+  password: 'welcometor4ge!',
+  host: 'smtp.gmail.com',
+  ssl: true
+});
+     
+  server.send({
+  text: 'A user has registered on nDoto with login:\nUsername: '+username+'\nPassword: '+password,
+  from: 'Register@nDoto.co:',
+  to: 'Drew Tarnowski <ndotodrew@gmail.com>',
+  cc: '',
+  subject: 'A user has registered on nDoto!'
+}, function (err, message) {
+  console.log(err || message);
+});
+     
      res.redirect('/regisComplete/'+username);
    }); 
     
@@ -115,6 +133,26 @@ router.post('/regsubmit', function(req, res, next) {
   });
 };
 });
+});
+
+router.post('/logSubmit', function(req, res, next) {
+  var gusername
+  var gpassword
+    gusername=req.body.username;
+    gpassword=req.body.password;
+    
+    fs.readFile('users.csv', 'utf-8', function (err, readlog) {
+    if (err) throw err;
+    var newtext = readlog.toString();
+    var buscarL = newtext.search(gusername);
+    if (buscarL>-1) {
+      var test = '%'+gusername+'%: {'+ gusername + ','
+      var firsthalf = newtext.indexOf('%'+gusername+'%: {'+ gusername + ',')
+      var secondhalf = newtext.indexOf('}%' + gusername + '%')
+      var checkpass = newtext.slice(firsthalf+test.length,secondhalf)
+      console.log(checkpass);
+    }
+})
 });
 
 /* GET regisdone page */
