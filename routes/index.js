@@ -72,9 +72,7 @@ router.post('/regsubmit', function(req, res, next) {
     var buscar = newtext.search(username);
     console.log(buscar);
     if (buscar>-1) {
-      res.render('login', {
-        err: 'name in use!'
-      });
+      res.render('login', {err: 'name in use!'});
     }
     
   else {
@@ -134,6 +132,15 @@ router.post('/regsubmit', function(req, res, next) {
 };
 });
 });
+
+router.post('/listUsers', function(req, res, next) {
+  var gets;
+    fs.readFile('registerednames.csv', 'utf-8', function(err, gets) {
+        if (err) throw err;
+        res.render('adminpriv', {listed: gets, title: 'Admin Console' });
+    });
+});
+
 
 router.post('/deleteUsers',function(req, res, next) {
     fs.writeFile('users.csv','', function(err) {
