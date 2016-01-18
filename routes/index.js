@@ -6,12 +6,16 @@ var email = require('emailjs')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    res.render('dev', {title: "Error"});
+});
+
+/* beta home page 
+router.get('/beta', function(req, res, next) {
     fs.readFile('likeNumber.txt', 'utf-8', function(err, read) {
       if (err) throw err;
       res.render('index', { title: 'nDoto', likeNumber: parseInt(read) });
     }); 
-// }
-});
+});*/
 
 
 /* GET credits page */
