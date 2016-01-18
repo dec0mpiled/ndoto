@@ -6,7 +6,7 @@ var email = require('emailjs')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', {title: 'nDoto'});
+    res.render('dev', {title: 'nDoto'});
 });
 
 /* beta home page *//*
