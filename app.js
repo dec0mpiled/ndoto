@@ -11,6 +11,14 @@ var app = express();
 
 var email = require('emailjs')
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://dec0mpiled:welcometor4ge@ds033875.mongolab.com:33875/ndotodb');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("Connected to the DB using Mongo!");
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

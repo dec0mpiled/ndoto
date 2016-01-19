@@ -2,21 +2,14 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var app = express();
-var email = require('emailjs')
+var email = require('emailjs');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('dev', {title: 'nDoto'});
 });
-
-/* beta home page *//*
-router.get('/beta', function(req, res, next) {
-    fs.readFile('likeNumber.txt', 'utf-8', function(err, read) {
-      if (err) throw err;
-      res.render('index', { title: 'nDoto', likeNumber: parseInt(read) });
-    }); 
-});*/
-
 
 /* GET credits page */
 router.get('/credits', function(req, res, next) {
@@ -55,57 +48,36 @@ server.send({
 // you have to use POST
 
 router.post('/regsubmit', function(req, res, next) {
-  
-  var i=0
-  var findname
-  var findusername
-  var findpass
-  
-  // req.body.(name of item)
-   var username = req.body.username;
-   var password = req.body.password;
 
-    fs.readFile('registerednames.csv', 'utf-8', function (err, reada) {
-    if (err) throw err;
-    console.log(reada);
-    var newtext = reada.toString();
-    var buscar = newtext.search(username);
-    console.log(buscar);
-    if (buscar>-1) {
-      res.render('login', {err: 'name in use!'});
+var userSchema = new Schema({
+  credentials: {
+    username: String,
+    password: String
+  }
+});
+
+var User = mongoose.model('User', userSchema);
+  
+   var gusername = req.body.username;
+   var gpassword = req.body.password;
+
+User.count({'credentials.username':gusername}, function (err, count){ 
+  if (err) throw err;
+  console.log(count);
+    if(count>0){
+        res.render('login', {err: 'name in use!'});
     }
     
-  else {
- fs.appendFile('users.csv', '%' + username + '%: {' + username + ',' + password + '}%' + username + '%\n', function(err) {
-    fs.appendFile('registerednames.csv', username + '\n')
-   var read = fs.readFile('users.csv', 'utf-8', function (err, read) {
-    read.toString();
-    console.log(read);
-    /*for (i=0; i < read.length; i++) {
-      var currentchar= read.charAt(i);
-      console.log(currentchar);
-    } */
+     else {
+       
+         var bad = new User({
+           credentials: { username: gusername, password: gpassword }
+         });
+         
+    console.log(bad.credentials.username);
     
-    var cu = read.search(",")
-    var cu1 = read.search(":")
-    var cu2 = read.search("{")
-    var cu3 = read.search("}")
-    parseInt(cu);
-    parseInt(cu1);
-    parseInt(cu2);
-    parseInt(cu3);
-          if (err) throw err;
-          console.log(cu);
-          console.log(cu1);
-          console.log(cu2);
-          console.log(cu3);
-    var findname = read.substring(0, cu1);
-    var findusername = read.substring(cu2+1, cu);
-    var findpass = read.substring(cu+1, cu3);
-     console.log(findname);
-     console.log(findusername);
-     console.log(findpass);
-     
+    bad.save();
+    
   var server = email.server.connect({
   user: 'ndotodrew@gmail.com',
   password: 'welcometor4ge!',
@@ -114,23 +86,16 @@ router.post('/regsubmit', function(req, res, next) {
 });
      
   server.send({
-  text: 'A user has registered on nDoto with login:\nUsername: '+username+'\nPassword: '+password,
+  text: 'A user has registered on nDoto with login:\nUsername: '+gusername+'\nPassword: '+gpassword,
   from: 'Register@nDoto.co:',
   to: 'Drew Tarnowski <ndotodrew@gmail.com>',
   cc: '',
   subject: 'A user has registered on nDoto!'
-}, function (err, message) {
-  console.log(err || message);
 });
      
-     res.redirect('/regisComplete/'+username);
-   }); 
-    
-    if (err) throw err;
-    
-  });
-};
-});
+     res.redirect('/regisComplete/'+gusername);
+     }
+    });
 });
 
 router.post('/listUsers', function(req, res, next) {
@@ -223,6 +188,5 @@ router.get('/removeLike', function(req, res, next) {
   });
   res.redirect('/');
 });
-
 
 module.exports = router;
