@@ -9,6 +9,7 @@
     <br>
     <label for='password'>Password</label>
     <input required=1 type="password" name="password" id="password" placeholder="password" onkeypress="return pass(event)">
+    {{#if logerr}}<p id="logerr"><font color="Red">{{logerr}}</font></p>{{/if}}
     <!-- button -->
     <br><button type="submit">Login :)</button>
     
