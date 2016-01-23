@@ -44,8 +44,10 @@ router.post('/finishRegister',function(req, res, next) {
 router.post('/confirmAcc',function(req, res, next) {
     var getid=req.body.confirmcode;
     console.log(getid);
-    User.update({ "_id": getid }, {confirmed: '1'}, function (err, doc){
-        console.log(doc);
+    var requis = { "_id": getid };
+    User.findOne(requis, function (err, doc){
+        doc.credentials.confirmed="1";
+        doc.save();
         if (err) throw err;
 });
     res.render('index', {title:'nDoto'});
