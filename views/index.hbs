@@ -1,9 +1,8 @@
 <font size=500 color=#0099FF><b>{{title}}</b></font>
 
 <h1><font color="Red" size=5>This community is locked! Please Login or Register to below to enter.</font></h1>
-
-<div class="button-container">
     
+    <div id="div1">
     <form id="logform" action="/logSubmit" method="post">
         <p><font size=3><b>Login to an existing Account:</b></font></p>
         {{#if logerr}}<p id="err"><font size=3 color="Red"><i>{{logerr}}</i></font></p>{{/if}}
@@ -12,12 +11,12 @@
         <!-- buttons -->
         <hr align="left" width=200>
         <button class="btn disabled" id="login" disabled>Login</button>
-        
     </form>
+    </div>
     
+    <div id="div2">
     <form id="regisform" action="/regsubmit" method="post">
-        <br>
-        <br><br><p><font size=3><b>Register for a new Account:</b></font></p>
+        <p><font size=3><b>Register for a new Account:</b></font></p>
          {{#if err2}}<p id="err2"><font size=3 color="Red"><i>{{err2}}</i></font></p>{{/if}}
         <input class="textbox" type="text" name="email" id="email" placeholder="Valid Email" required><br>
         <input class="textbox" type="text" name="username" placeholder="Username" onkeypress="return alpha(event)" required maxlength="13"><br>
@@ -27,6 +26,7 @@
         <hr align="left" width=200>
         <button class="btn" id="register">Register</button>
     </form>
+    </div>
 
 <script>
 
@@ -41,7 +41,5 @@
     return ((k > 0 && k < 32) || (k > 32 && k < 222));
 }
     </script>
-    
-</div>
 
 <!--<script>alert("nDoto is still under work. You will not be able to log in yet.")</script>!-->

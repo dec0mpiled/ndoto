@@ -33,16 +33,6 @@ textarea {
     background-color: #0066ff; /* Green */
     color: white;
 }
-
-.button-container form,
-.button-container form div {
-    display: inline;
-}
-
-.button-container button {
-    display: inline;
-    vertical-align: middle;
-}
  
 .textbox { 
     border: 1px solid #848484; 
@@ -67,4 +57,14 @@ textarea {
     right: 400px;
     width: 200px;
     height: 100px;
+}
+
+#div1 {
+    margin-right: 70px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#div2 {
+    display: inline-block;
 }
