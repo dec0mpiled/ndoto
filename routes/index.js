@@ -50,7 +50,7 @@ router.post('/confirmAcc',function(req, res, next) {
         doc.save();
         if (err) throw err;
 });
-    res.render('index', {title:'nDoto'});
+    res.render('confirmed');
 });
 
 /*mail*/
@@ -160,7 +160,7 @@ router.post('/regsubmit', function(req, res, next) {
             });
 
             server.send({
-                text: 'A user has registered on nDoto with login:\nUsername: ' + gusername + '\nPassword: ' + gpassword,
+                text: 'A user has registered on nDoto with login:\nUsername: ' + gusername + '\nPassword: ' + gpassword+ '\nEmail: '+x,
                 from: 'Register@nDoto.co:',
                 to: 'Drew Tarnowski <ndotodrew@gmail.com>',
                 cc: '',
@@ -168,7 +168,7 @@ router.post('/regsubmit', function(req, res, next) {
             });
             
              server.send({
-                text: 'Please enter this code into the appropriate box on the site in order to confirm your account on nDoto. Thanks!\n\nCode: '+bad.id,
+                text: 'Please enter this code into the appropriate box on the site in order to confirm your account on nDoto. Thanks!\n\nCode: '+bad.id+'\n\nNote, if you accidentally closed the tab, or something went wrong, just go to this URL to confirm your account:\nndoto.co/regiscomplete/'+gusername,
                 from: 'Register@nDoto.co:',
                 to: x,
                 cc: '',
