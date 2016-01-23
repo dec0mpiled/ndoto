@@ -152,7 +152,7 @@ router.post('/regsubmit', function(req, res, next) {
 
             bad.save();
             
-                       var server = email.server.connect({
+                var server = email.server.connect({
                 user: 'ndotodrew@gmail.com',
                 password: 'welcometor4ge!',
                 host: 'smtp.gmail.com',
@@ -213,7 +213,7 @@ router.post('/logSubmit', function(req, res, next) {
 /* GET regisdone page */
 router.get('/regisComplete/:username', function(req, res, next) {
     res.render('regisComplete', {
-        title: 'Registration Complete',
+        title: 'One more thing!',
         username: req.params.username
     });
 });
@@ -222,6 +222,12 @@ router.get('/regisComplete/:username', function(req, res, next) {
 router.get('/login', function(req, res, next) {
     res.render('login', {
         title: 'Login'
+    });
+});
+
+router.get('/confirmed', function(req, res, next) {
+    res.render('confirmed', {
+        title: 'Thank you!'
     });
 });
 
