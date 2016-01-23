@@ -9,7 +9,9 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
     credentials: {
         username: String,
-        password: String
+        password: String,
+        email: String,
+        confirmed: String
     }
 });
 
@@ -17,7 +19,7 @@ var User = mongoose.model('User', userSchema);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('dev', {
+    res.render('index', {
         title: 'nDoto'
     });
 });
@@ -33,6 +35,20 @@ router.get('/dev', function(req, res, next) {
     res.render('dev', {
         title: 'Error'
     });
+});
+
+router.post('/finishRegister',function(req, res, next) {
+    res.render('finishRegister', { title: 'Complete Registration' });
+});
+
+router.post('/confirmAcc',function(req, res, next) {
+    var getid=req.body.confirmcode;
+    console.log(getid);
+    User.update({ "_id": getid }, {confirmed: '1'}, function (err, doc){
+        console.log(doc);
+        if (err) throw err;
+});
+    res.render('index', {title:'nDoto'});
 });
 
 /*mail*/
@@ -63,9 +79,47 @@ router.post('/sendMail', function(req, res, next) {
 // you have to use POST
 
 router.post('/regsubmit', function(req, res, next) {
-
+    
     var gusername = req.body.username;
     var gpassword = req.body.password;
+    var validemail;
+    var validpass;
+    var validusername;
+    var freeemail;
+    
+    var x = req.body.email;
+    var p = req.body.password;
+    var p1 = req.body.passwordagain;
+    console.log(x);
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+        res.render('index', {title: 'nDoto', err2: 'Invalid Email Address!'});
+        return;
+    } else {
+    var validemail=1;
+    }
+    
+    if (p1!=p){
+    res.render('index', {title: 'nDoto', err2: 'Passwords do not match!'});
+    return;
+    } else {
+        var validpass=1;
+    }
+    
+    User.count({ 
+    'credentials.email': x
+    }, function(err, count) {
+        if (err) throw err;
+        console.log(count);
+        if (count > 0) {
+            res.render('index', {
+                title: 'nDoto', 
+                err2: 'Email is already in use. Try logging in!'
+            });
+        } else {
+            var freeemail=1;
+        }
 
     User.count({
         'credentials.username': gusername
@@ -73,23 +127,30 @@ router.post('/regsubmit', function(req, res, next) {
         if (err) throw err;
         console.log(count);
         if (count > 0) {
-            res.render('login', {
-                err: 'name in use!'
+            res.render('index', {
+                title: 'nDoto', 
+                err2: 'Username is taken. Please try again'
             });
         } else {
+            var validusername=1;
+        }
 
+        if (freeemail==1 && validemail==1 && validusername==1 && validpass==1){
+            
             var bad = new User({
                 credentials: {
                     username: gusername,
-                    password: gpassword
+                    password: gpassword,
+                    email: x,
+                    confirmed: '0'
                 }
             });
 
             console.log(bad.credentials.username);
 
             bad.save();
-
-            var server = email.server.connect({
+            
+                       var server = email.server.connect({
                 user: 'ndotodrew@gmail.com',
                 password: 'welcometor4ge!',
                 host: 'smtp.gmail.com',
@@ -103,9 +164,19 @@ router.post('/regsubmit', function(req, res, next) {
                 cc: '',
                 subject: 'A user has registered on nDoto!'
             });
-
+            
+             server.send({
+                text: 'Please enter this code into the appropriate box on the site in order to confirm your account on nDoto. Thanks!\n\nCode: '+bad.id,
+                from: 'Register@nDoto.co:',
+                to: x,
+                cc: '',
+                subject: 'Please confirm your account'
+            }); 
+            
             res.redirect('/regisComplete/' + gusername);
+
         }
+    });
     });
 });
 
@@ -114,6 +185,7 @@ router.post('/logSubmit', function(req, res, next) {
     var gpassword = req.body.password;
     toString(gusername);
     toString(gpassword);
+    console.log(gusername+gpassword);
     
   User.findOne({ 'credentials.username': gusername }, function(err, user) {
   if (err) throw err;
@@ -123,14 +195,15 @@ router.post('/logSubmit', function(req, res, next) {
     // The password is stored in user.credentials.password
     var gottenpassword = user.credentials.password;
     if (gpassword==gottenpassword) {
-        res.redirect('/');
+        res.redirect('/bugreport');
     } else {
-        res.render('login',{logerr:'the password is wrong!'});
+        res.render('index',{title: 'nDoto', logerr:'The password is incorrect!'});
     }
   } else {
     // Raise an error or return an error response
-    res.render('login',{logerr:'user does not exist!'});
+    res.render('index',{title: 'nDoto', logerr:'The username is incorrect!'});
   }
+  
 });
 
 });

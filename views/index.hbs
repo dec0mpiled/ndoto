@@ -1,19 +1,47 @@
+<font size=500 color=#0099FF><b>{{title}}</b></font>
 
-<head></head>
-<link rel="shortcut icon" href="favicon.ico" />
-<h1>{{title}}<sup><font color=#00ff00 size=3>"dream"</font></sup></h1>
+<h1><font color="Red" size=5>This community is locked! Please Login or Register to below to enter.</font></h1>
 
-<a href="/"><font size="4" color="White">Home</font></a> | <a href="/login/"><font size="4" color="White">Login</font></a> | <a href="/credits/"><font size="4" color="White">Credits</font></a> | <a href="/bugreport/"><font size="4" color="White">Bug Report / Feedback</font></a>
-<BR><BR>
+<div class="button-container">
     
-  <!--<img src="images/Jess.jpg" height=300 width=300> !-->
-    <br> <font color=#FFF>_______________________________________</font>
-    <br><br> <font color=#FFF>"Drew Tarnowski"</font> <font color=#3366ff>@dec0mpiled</font>
-    <br><br><b><font color=#ffffff>nDoto is now up and ready for use! If you ever find bugs, report them on the "Bug Report" page. Thanks, and have fun!</font></b>
-    <br><br>
-    <a href="/addLike">| Like |</a>
-    <a href="/removeLike">| Dislike |</a> ({{likeNumber}})
-    <br> <font color=#FFF>_______________________________________</font>
-     <!-- <a href="/resetAll">[ Reset ]</a> !-->
-    <br><br><br>
-<marquee behavior="scroll" direction="left" scrollamount="7"><font size="5" color="Red">Welcome to nDoto! To get started, head to the Login page to Login or Register :)</font></marquee>
+    <form id="logform" action="/logSubmit" method="post">
+        <p><font size=3><b>Login to an existing Account:</b></font></p>
+        {{#if logerr}}<p id="err"><font size=3 color="Red"><i>{{logerr}}</i></font></p>{{/if}}
+        <input class="textbox" type="text" name="username" placeholder="Username" onkeypress="return alpha(event)" required maxlength="13"><br>
+        <input class="textbox" type="password" name="password" placeholder="Password" onkeypress="return pass(event)" required>
+        <!-- buttons -->
+        <hr align="left" width=200>
+        <button class="btn disabled" id="login">Login</button>
+        
+    </form>
+    
+    <form id="regisform" action="/regsubmit" method="post">
+        <br>
+        <br><br><p><font size=3><b>Register for a new Account:</b></font></p>
+         {{#if err2}}<p id="err2"><font size=3 color="Red"><i>{{err2}}</i></font></p>{{/if}}
+        <input class="textbox" type="text" name="email" id="email" placeholder="Valid Email" required><br>
+        <input class="textbox" type="text" name="username" placeholder="Username" onkeypress="return alpha(event)" required maxlength="13"><br>
+        <input class="textbox" type="password" name="password" placeholder="Password" onkeypress="return pass(event)" required><br>
+        <input class="textbox" type="password" name="passwordagain" placeholder="Re-Enter Password" onkeypress="return pass(event)" required>
+        <!-- buttons -->
+        <hr align="left" width=200>
+        <button class="btn" id="register">Register</button>
+    </form>
+
+<script>
+
+    function alpha(e) {
+    var k;
+    document.all ? k = e.keyCode : k = e.which;
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || (k >= 48 && k <= 57));
+}
+    function pass(e) {
+    var k;
+    document.all ? k = e.keyCode : k = e.which;
+    return ((k > 0 && k < 32) || (k > 32 && k < 222));
+}
+    </script>
+    
+</div>
+
+<!--<script>alert("nDoto is still under work. You will not be able to log in yet.")</script>!-->

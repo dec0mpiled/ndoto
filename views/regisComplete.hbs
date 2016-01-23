@@ -1,4 +1,13 @@
 <head><link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/ ></head>
-<h1>Registration Complete!</h1>
-<br>
-<h2>Welcome to nDoto, {{username}}!</h2>
+<font size=500 color=#0099FF><b>nDoto</b></font>
+<h2>You're almost done!</h2>
+<h4>Please check the email that you signed up with, and enter the following information below to confirm your account, {{username}}!</h4>
+
+<form id="confirmForm" action="/confirmAcc" method="post">
+    <p><font size=3 color=#0099FF><b>Enter the 24-digit code from your email here:</b></font></p>
+    <input class="textbox" type="text" name="confirmcode" placeholder="Code" required>
+    <br>
+    <hr align="left" width=200>
+    <button class="btn" id="doconfirm" style="width:150px;height:40px">Confirm Account</button>
+    
+</form>
