@@ -18,6 +18,9 @@
     <form id="regisform" action="/regsubmit" method="post">
         <p><font size=3><b>Register for a new Account:</b></font></p>
          {{#if err2}}<p id="err2"><font size=3 color="Red"><i>{{err2}}</i></font></p>{{/if}}
+        <input class="textbox" type="text" name="fname" id="fname" placeholder="First Name" required onkeypress="return pass(event)"><br>
+        <input class="textbox" type="text" name="lname" id="lname" placeholder="Last Name" required onkeypress="return pass(event)"><br>
+        <hr align="left" width=200>
         <input class="textbox" type="text" name="email" id="email" placeholder="Valid Email" required><br>
         <input class="textbox" type="text" name="username" placeholder="Username" onkeypress="return alpha(event)" required maxlength="13"><br>
         <input class="textbox" type="password" name="password" placeholder="Password" onkeypress="return pass(event)" required><br>

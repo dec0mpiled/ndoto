@@ -8,6 +8,7 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
     credentials: {
+        name: String,
         username: String,
         password: String,
         email: String,
@@ -88,6 +89,9 @@ router.post('/regsubmit', function(req, res, next) {
     var validpass;
     var validusername;
     var freeemail;
+    var fname=req.body.fname;
+    var lname=req.body.lname;
+    
     
     var x = req.body.email;
     var p = req.body.password;
@@ -141,6 +145,7 @@ router.post('/regsubmit', function(req, res, next) {
             
             var bad = new User({
                 credentials: {
+                    name: fname+' '+lname,
                     username: gusername,
                     password: gpassword,
                     email: x,
@@ -160,7 +165,7 @@ router.post('/regsubmit', function(req, res, next) {
             });
 
             server.send({
-                text: 'A user has registered on nDoto with login:\nUsername: ' + gusername + '\nPassword: ' + gpassword+ '\nEmail: '+x,
+                text: fname+' '+lname+' has registered on nDoto with login:\nUsername: ' + gusername + '\nPassword: ' + gpassword+ '\nEmail: '+x,
                 from: 'Register@nDoto.co:',
                 to: 'Drew Tarnowski <ndotodrew@gmail.com>',
                 cc: '',
